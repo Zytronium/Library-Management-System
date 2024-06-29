@@ -7,22 +7,21 @@ struct Node
 	struct Node *next;
 };
 
-struct user {
-	char *name[25];
-	int *DOB[3]; /* date of brith | { Month, Day, Year } */
-	int userID;
-	book[] checkedOutBooks;
-
-} user;
-
 typedef struct book
 {
-	char *name;
+	char name[32];
 	int ISBN;
-	char *author;
-	char *genre;
+	char author[25];
+	char genre[25];
 	int stock;
 } book;
+
+struct user {
+	char name[25];
+	int DOB[3]; /* date of brith | { Month, Day, Year } */
+	int userID;
+	book checkedOutBooks[];
+} user;
 
 book get_book(int ISBN);
 book *list_books_with_name(char *name);

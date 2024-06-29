@@ -1,2 +1,5 @@
 !/.gitignore
 !/.idea/
+/.idea/.gitignore
+/.idea/discord.xml
+/.idea/material_theme_project_new.xml

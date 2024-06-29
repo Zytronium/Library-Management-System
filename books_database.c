@@ -1,6 +1,10 @@
 #include "main.h"
 
-book[] books = { book("name", 1, "author", "genre"), book("name2", 2, "author", "genre"), book("name03", 3, "author2", "genre2")};
+book books[] = {
+		{ .name = "name", .ISBN = 1, .author = "author", .genre = "genre", .stock = 12 },
+		{ .name = "name2", .ISBN = 2, .author = "author", .genre = "genre", .stock = 17 },
+		{ .name = "name03", .ISBN = 3, .author = "author2", .genre = "genre2", .stock = 14 }
+};
 
 /**
  * Adds a book to the database
@@ -22,7 +26,7 @@ void remove_book(int ISBN)
 
 /**
  * Gets the book with the corresponding ISBN number.
- * @param name The book's ISBN to search for
+ * @param ISBN The book's ISBN to search for
  * @return The book with the given ISBN number, or NULL if not found.
  */
 book get_book(int ISBN)
