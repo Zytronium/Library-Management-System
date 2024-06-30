@@ -1,21 +1,9 @@
-#include "main.h"
+#include "users.h"
 #include <stdlib.h>
-
-#ifndef NULL_BOOK
-#define NULL_BOOK ((book_t) { .name = "", .ISBN = 0, .author = "", .genre = "", .stock = 0 })
-
-#endif
-
-book_t books[] = {
-		{.name = "name", .ISBN = 1, .author = "author", .genre = "genre", .stock = 12},
-		{.name = "name2", .ISBN = 2, .author = "author", .genre = "genre", .stock = 17},
-		{.name = "name03", .ISBN = 3, .author = "author2", .genre = "genre2", .stock = 14},
-		NULL_BOOK
-};
 
 /**
  * Adds a book to the database
- * @param ISBN ISBN numb of book to add
+ * @param ISBN ISBN of book to add
  */
 void add_book(int ISBN)
 {
@@ -24,7 +12,7 @@ void add_book(int ISBN)
 
 /**
  * Removes a book from the database
- * @param ISBN ISBN numb of book to remove
+ * @param ISBN ISBN of book to remove
  */
 void remove_book(int ISBN)
 {
@@ -34,7 +22,7 @@ void remove_book(int ISBN)
 /**
  * Gets the book with the corresponding ISBN number.
  * @param ISBN The book's ISBN to search for
- * @return The book with the given ISBN number, or NULL if not found.
+ * @return The book with the given ISBN, or INVALID_BOOK if not found.
  */
 book_t get_book(int ISBN)
 {
@@ -87,37 +75,37 @@ book_t *list_books_in_genre(char *genre)
  */
 book_t *find_books_from_info(char *name, char *author, char *genre)
 {
-	int name_matches[] = {};
-	int author_matches[] = {};
-	int genre_matches[] = {};
-	int matches[] = {}; /* ISBN of all matching books. 0 is null terminator */
+	int name_matches[] = {}; /* ISBNs of all books with a matching name */
+	int author_matches[] = {}; /* ISBNs of all books with a matching author */
+	int genre_matches[] = {}; /* ISBNs of all books with s matching genre */
+	int matches[] = {}; /* ISBNs of all books matching all provided search params. NULL_ISBN (aka 0) is null terminator */
 	int i = 0, name_i = 0, author_i = 0, genre_i = 0, matches_i = 0, name_len = 0, author_len = 0, genre_len = 0;
 
 	if (name != NULL)
 	{
 		for (name_len = 0; list_books_with_name(name)[name_len].ISBN !=
-						   NULL_BOOK.ISBN; name_len++)
+						   NULL_ISBN; name_len++)
 			name_matches[name_len] = list_books_with_name(name)[name_len].ISBN;
 	}
-	name_matches[name_len] = NULL_BOOK.ISBN;
+	name_matches[name_len] = NULL_ISBN;
 
 	if (author != NULL)
 	{
 		for (author_len = 0; list_books_by_author(author)[author_len].ISBN !=
-							 NULL_BOOK.ISBN; author_len++)
+							 NULL_ISBN; author_len++)
 			author_matches[author_len] = list_books_by_author(
 					author)[author_len].ISBN;
 	}
-	author_matches[author_len] = NULL_BOOK.ISBN;
+	author_matches[author_len] = NULL_ISBN;
 
 	if (genre != NULL)
 	{
 		for (genre_len = 0; list_books_in_genre(genre)[genre_len].ISBN !=
-							NULL_BOOK.ISBN; genre_len++)
+							NULL_ISBN; genre_len++)
 			genre_matches[genre_len] = list_books_in_genre(
 					genre)[genre_len].ISBN;
 	}
-	genre_matches[genre_len] = NULL_BOOK.ISBN;
+	genre_matches[genre_len] = NULL_ISBN;
 
 	if (name != NULL && author != NULL && genre != NULL)
 	{
@@ -145,7 +133,7 @@ book_t *find_books_from_info(char *name, char *author, char *genre)
 			}
 			matches_i++;
 		}
-		matches[matches_i] = NULL_BOOK.ISBN;
+		matches[matches_i] = NULL_ISBN;
 	}
 
 	/*
